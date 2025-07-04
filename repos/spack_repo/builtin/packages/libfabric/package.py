@@ -108,6 +108,7 @@ class Libfabric(AutotoolsPackage, CudaPackage):
     variant("debug", default=False, description="Enable debugging")
     variant("uring", default=False, when="@1.17.0:", description="Enable uring support")
     variant("level_zero", default=False, description="Enable Level Zero support")
+    variant("gdrcopy", default=False, when="@2:", description="Use gdrcopy for CUDA memory copies (requires an external library and kernel module from NVidia)")
 
     # For version 1.9.0:
     # headers: fix forward-declaration of enum fi_collective_op with C++
@@ -142,6 +143,7 @@ class Libfabric(AutotoolsPackage, CudaPackage):
     depends_on("libtool", when="@main", type="build")
     depends_on("json-c", when="fabrics=cxi")
     depends_on("curl", when="fabrics=cxi")
+    depends_on("gdrcopy", when="+gdrcopy")
 
     conflicts("@1.9.0", when="platform=darwin", msg="This distribution is missing critical files")
     conflicts("fabrics=opx", when="@:1.14.99")
@@ -152,6 +154,7 @@ class Libfabric(AutotoolsPackage, CudaPackage):
         msg="Libfabric 1.20.0 uses values in memory that are not correctly "
         "set by OPX, resulting in undefined behavior.",
     )
+    conflicts("+gdrcopy", when="~cuda", msg="gdrcopy is only valid when cuda is enabled")
 
     flag_handler = build_system_flags
 
@@ -220,6 +223,9 @@ class Libfabric(AutotoolsPackage, CudaPackage):
             args.append(f"--with-cassini-headers={self.spec['cassini-headers'].prefix.include}")
             args.append(f"--with-cxi-uapi-headers={self.spec['cxi-driver'].prefix.include}")
             args.append(f"--enable-cxi={self.spec['libcxi'].prefix}")
+
+        if self.spec.satisfies("+gdrcopy"):
+            args.append(f"--with-gdrcopy=={self.spec['gdrcopy'].prefix}")
 
         if self.spec.satisfies("fabrics=xpmem"):
             args.append(f"--enable-xpmem={self.spec['xpmem'].prefix}")
