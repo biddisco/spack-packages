@@ -184,6 +184,7 @@ class Libfabric(AutotoolsPackage, CudaPackage, ROCmPackage):
     depends_on("libtool", when="@main", type="build")
     depends_on("json-c", when="fabrics=cxi")
     depends_on("curl", when="fabrics=cxi")
+    depends_on("gdrcopy", when="+gdrcopy")
 
     conflicts("@1.9.0", when="platform=darwin", msg="This distribution is missing critical files")
     conflicts("fabrics=opx", when="@:1.14.99")
@@ -194,6 +195,7 @@ class Libfabric(AutotoolsPackage, CudaPackage, ROCmPackage):
         msg="Libfabric 1.20.0 uses values in memory that are not correctly "
         "set by OPX, resulting in undefined behavior.",
     )
+    conflicts("+gdrcopy", when="~cuda", msg="gdrcopy is only valid when cuda is enabled")
 
     conflicts("+asan +tsan")
 
