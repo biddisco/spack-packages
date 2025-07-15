@@ -65,6 +65,8 @@ class Libtree(MakefilePackage, CMakePackage):
         depends_on("chrpath", when="+chrpath", type="run")
         depends_on("binutils", when="+strip", type="run")
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
     # header only dependencies
     depends_on("cpp-termcolor", when="@2.0.0:2", type="build")
     depends_on("cxxopts", when="@2.0.0:2", type="build")
