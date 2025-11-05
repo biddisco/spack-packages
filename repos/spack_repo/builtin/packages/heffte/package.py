@@ -55,6 +55,7 @@ class Heffte(CMakePackage, CudaPackage, ROCmPackage):
     variant("python", default=False, description="Install the Python bindings")
     variant("fortran", default=False, description="Install the Fortran modules")
     variant("benchmarks", default=False, description="Install the heFFTe benchmarks")
+    variant("mpi_gpu_aware", default=False, when="+cuda", description="Enable GPU aware MPI")
 
     depends_on("python@3.0:", when="+python", type=("build", "run"))
     depends_on("py-mpi4py", when="+python", type=("build", "run"))
@@ -103,6 +104,7 @@ class Heffte(CMakePackage, CudaPackage, ROCmPackage):
             self.define_from_variant("Heffte_ENABLE_MAGMA", "magma"),
             self.define_from_variant("Heffte_ENABLE_FORTRAN", "fortran"),
             self.define_from_variant("Heffte_ENABLE_PYTHON", "python"),
+            self.define_from_variant("Heffte_ENABLE_GPU_AWARE_MPI", "mpi_gpu_aware"),
         ]
 
         if self.spec.satisfies("+cuda") and self.spec.satisfies("@:2.3.0"):
@@ -198,3 +200,4 @@ class Heffte(CMakePackage, CudaPackage, ROCmPackage):
         make = which("make", required=True)
         make()
         make("test")
+
