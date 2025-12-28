@@ -24,6 +24,7 @@ class Grpc(CMakePackage):
     version("1.61.2", sha256="86f8773434c4b8a4b64c67c91a19a90991f0da0ba054bbeb299dc1bc95fad1e9")
     version("1.59.1", sha256="916f88a34f06b56432611aaa8c55befee96d0a7b7d7457733b9deeacbc016f99")
     version("1.55.0", sha256="9cf1a69a921534ac0b760dcbefb900f3c2f735f56070bf0536506913bb5bfd74")
+    version("1.50.2", sha256="e941752638a92f21e27566903e1eb9b4a6380d70ca5ce91116b4cff6cb8fe2f2")
     version("1.50.0", sha256="76900ab068da86378395a8e125b5cc43dfae671e09ff6462ddfef18676e2165a")
     version("1.47.0", sha256="271bdc890bf329a8de5b65819f0f9590a5381402429bca37625b63546ed19e54")
     version("1.46.0", sha256="67423a4cd706ce16a88d1549297023f0f9f0d695a96dd684adc21e67b021f9bc")
@@ -86,7 +87,8 @@ class Grpc(CMakePackage):
         depends_on("abseil-cpp@20240116.1:20240117.0", when="@1.67")
         depends_on("abseil-cpp@20240722.0", when="@1.78")
 
-    depends_on("re2+pic@2023-09-01", when="@1.33.1:")
+    depends_on("re2+pic")
+#    depends_on("re2+pic@2023-09-01", when="@1.33.1:")
 
     def cmake_args(self):
         args = [
