@@ -12,11 +12,32 @@ class AbseilCpp(CMakePackage):
 
     homepage = "https://abseil.io/"
     url = "https://github.com/abseil/abseil-cpp/archive/refs/tags/20260107.1.tar.gz"
+    git = "https://github.com/abseil/abseil-cpp.git"
 
     maintainers("jcftang")
     tags = ["windows"]
 
     license("Apache-2.0", checked_by="wdconinc")
+    version("master", branch="master")
+
+    version(
+        "20250814.1", sha256="1692f77d1739bacf3f94337188b78583cf09bab7e420d2dc6c5605a4f86785a1"
+    )
+    version(
+        "20250814.0", sha256="9b2b72d4e8367c0b843fa2bcfa2b08debbe3cee34f7aaa27de55a6cbb3e843db"
+    )
+    version(
+        "20250512.1", sha256="9b7a064305e9fd94d124ffa6cc358592eb42b5da588fb4e07d09254aa40086db"
+    )
+    version(
+        "20250512.0", sha256="7262daa7c1711406248c10f41026d685e88223bc92817d16fb93c19adb57f669"
+    )
+    version(
+        "20250127.1", sha256="b396401fd29e2e679cace77867481d388c807671dc2acc602a0259eeb79b7811"
+    )
+    version(
+        "20250127.0", sha256="16242f394245627e508ec6bb296b433c90f8d914f73b9c026fddb905e27276e8"
+    )
 
     version(
         "20260107.1", sha256="4314e2a7cbac89cac25a2f2322870f343d81579756ceff7f431803c2c9090195"
