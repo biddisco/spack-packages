@@ -13,9 +13,11 @@ class Re2(CMakePackage):
 
     homepage = "https://github.com/google/re2"
     url = "https://github.com/google/re2/archive/2020-08-01.tar.gz"
+    git = 'https://github.com/google/re2.git'
 
     license("BSD-3-Clause", checked_by="wdconinc")
 
+    version("main", branch="main")
     version(
         "2025-11-05", sha256="87f6029d2f6de8aa023654240a03ada90e876ce9a4676e258dd01ea4c26ffd67"
     )
