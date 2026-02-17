@@ -49,6 +49,8 @@ class PyTensorflow(Package, CudaPackage, ROCmPackage, PythonExtension):
     maintainers("adamjstewart", "aweits")
     tags = ["e4s"]
 
+    version("master", branch="master")
+
     version("2.21.0", sha256="ef3568bb4865d6c1b2564fb5689c19b6b9a5311572cd1f2ff9198636a8520921")
     version(
         "2.20.0-rocm-enhanced",
