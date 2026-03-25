@@ -79,8 +79,12 @@ class SetupEnvironment:
     def setup_build_environment(self, env: EnvironmentModifications) -> None:
         env.append_flags("LDFLAGS", "-Wl,--copy-dt-needed-entries")
         if self.spec.satisfies("build_system=meson"):
-            env.append_flags("CPPFLAGS", "-I{0}".format(self.spec["libiconv"].prefix.include))
-            env.append_flags("LDFLAGS", "-L{0} -liconv".format(self.spec["libiconv"].prefix.lib))
+            # Only inject flags if we are using the standalone GNU libiconv package.
+            # If iconv is coming from libc, the compiler finds it automatically.
+            if '^libiconv' in self.spec:
+                env.append_flags("CPPFLAGS", "-I{0}".format(self.spec["libiconv"].prefix.include))
+                env.append_flags("LDFLAGS", "-L{0} -liconv".format(self.spec["libiconv"].prefix.lib))
+            # If it's not libiconv, it's likely libc; no extra flags needed.
 
 
 class AutotoolsBuilder(autotools.AutotoolsBuilder, SetupEnvironment):
