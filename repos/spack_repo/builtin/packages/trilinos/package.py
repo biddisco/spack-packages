@@ -1042,10 +1042,20 @@ class Trilinos(CMakePackage, CudaPackage, ROCmPackage):
                 [
                     define("CMAKE_C_COMPILER", spec["mpi"].mpicc),
                     define("CMAKE_CXX_COMPILER", spec["mpi"].mpicxx),
-                    define("CMAKE_Fortran_COMPILER", spec["mpi"].mpifc),
                     define("MPI_BASE_DIR", str(pathlib.PurePosixPath(spec["mpi"].prefix))),
                 ]
             )
+
+            if "+fortran" in spec:
+                # Force Trilinos to use the MPI wrappers instead of raw compilers
+                # to propagate library link flags for linkers that require fully
+                # resolved symbols in shared libs (such as macOS and some newer
+                # Ubuntu)
+                options.extend(
+                    [
+                        define("CMAKE_Fortran_COMPILER", spec["mpi"].mpifc),
+                    ]
+                )
 
         # ParMETIS dependencies have to be transitive explicitly
         have_parmetis = "parmetis" in spec
