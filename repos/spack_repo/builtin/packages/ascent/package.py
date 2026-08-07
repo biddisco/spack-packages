@@ -231,7 +231,7 @@ class Ascent(CMakePackage, CudaPackage, ROCmPackage):
     #######################
     with when("+raja"):
         depends_on("raja")
-        depends_on("raja@2024.02.1:2025.03.1", when="@0.9.3:")
+#        depends_on("raja@2024.02.1:2025.03.1", when="@0.9.3:")
         depends_on("raja+openmp", when="+openmp")
         depends_on("raja~openmp", when="~openmp")
         depends_on("raja+rocm", when="+rocm")

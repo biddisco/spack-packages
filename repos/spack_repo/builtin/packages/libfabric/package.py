@@ -157,6 +157,7 @@ class Libfabric(AutotoolsPackage, CudaPackage, ROCmPackage):
     # Fix for the inline assembly problem for the Nvidia compilers
     # https://github.com/ofiwg/libfabric/pull/7665
     patch("nvhpc-symver.patch", when="@1.6.0:1.14.0 %nvhpc")
+    patch("mr_unsubscribe.patch")
 
     depends_on("c", type="build")  # generated
 

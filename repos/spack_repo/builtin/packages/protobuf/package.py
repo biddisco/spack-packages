@@ -117,9 +117,9 @@ class Protobuf(CMakePackage):
     depends_on("cxx", type="build")
 
     depends_on("abseil-cpp cxxstd=17", when="@32.1:")
-    depends_on("abseil-cpp@20230125.3:", when="@22.5:")
+    depends_on("abseil-cpp", when="@22.5:")
     # https://github.com/protocolbuffers/protobuf/issues/11828#issuecomment-1433557509
-    depends_on("abseil-cpp@20230125:", when="@22:")
+#    depends_on("abseil-cpp@20230125:", when="@22:")
     depends_on("zlib-api")
 
     # See https://github.com/protocolbuffers/protobuf/issues/26383

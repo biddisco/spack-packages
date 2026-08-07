@@ -213,7 +213,7 @@ class CMakeBuilder(cmake.CMakeBuilder, SetupEnvironment):
             self.define_from_variant("HB_HAVE_DIRECTWRITE", "directwrite"),
             self.define_from_variant("HB_HAVE_CORETEXT", "coretext"),
             self.define("HB_HAVE_GLIB", use_gobject),
-            self.define("HB_HAVE_CAIRO", use_gobject),
+            self.define("HB_HAVE_CAIRO", False),
             self.define("HB_BUILD_UTILS", use_gobject and self.spec.satisfies("+utils")),
             self.define("HB_HAVE_GOBJECT", use_gobject),
             self.define("HB_HAVE_INTROSPECTION", use_gobject),
